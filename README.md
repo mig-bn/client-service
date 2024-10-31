@@ -76,11 +76,11 @@ Este proyecto es una API RESTful para gestionar clientes, sus cuentas y movimien
 - **Endpoint**: `GET /clientes/{clienteId}`
 - **Descripción**: Obtiene la información de un cliente específico por su clienteId.
 
-### Actualizar Cliente**
+### Actualizar Cliente
 -**Endpoint**: `PUT /clientes/{clienteId}`
 Descripción: Actualiza los datos de un cliente y su persona asociada.
 Request JSON:
- ```json
+  ```json
   {
     "contrasena": "nuevaContrasena",
     "estado": false,
@@ -89,3 +89,4 @@ Request JSON:
       "edad": 36
     }
   }
+
