@@ -72,15 +72,16 @@ Este proyecto es una API RESTful para gestionar clientes, sus cuentas y movimien
       "telefono": "0987654321"
     }
   }
+  ```
 #### Obtener Cliente por ID
 - **Endpoint**: `GET /clientes/{clienteId}`
 - **Descripción**: Obtiene la información de un cliente específico por su clienteId.
 
 ### Actualizar Cliente
--**Endpoint**: `PUT /clientes/{clienteId}`
-Descripción: Actualiza los datos de un cliente y su persona asociada.
-Request JSON:
-  ```json
+- **Endpoint**: `PUT /clientes/{clienteId}`
+- Descripción: Actualiza los datos de un cliente y su persona asociada.
+- Request JSON:
+  ```
   {
     "contrasena": "nuevaContrasena",
     "estado": false,
@@ -90,3 +91,24 @@ Request JSON:
     }
   }
 
+
+### Movimientos
+- **Registrar Movimiento**
+- **Endpoint**: `POST /movimientos`
+- **Descripción**: Registra un movimiento (crédito o débito) en una cuenta específica.
+- **Request JSON**:
+```
+{
+  "numeroCuenta": "1234567890",
+  "tipoMovimiento": "debito",
+  "monto": 1000.0,
+  "clienteId": "C123456"
+} 
+```
+
+### Reportes
+- **Generar Reporte de Movimientos por Fecha**
+- **Endpoint**: `GET /reportes/{fechaInicio}/{fechaFin}`
+- **Descripción**: Genera un reporte del estado de cuentas y movimientos en un rango de fechas para todos los clientes.
+- Ejemplo de Request:
+``` GET /reportes/2023-01-01/2023-12-31 ```
