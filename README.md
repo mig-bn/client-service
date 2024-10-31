@@ -7,7 +7,75 @@ Es un proyecto hecho con Sprinboot para gestion clientes, cuentas y movimientos 
 2. **Gestión de Cuentas**: CRUD de cuentas asociadas a un cliente específico.
 3. **Gestión de Movimientos**: Registro de movimientos de tipo "crédito" o "débito" en las cuentas de los clientes.
 4. **Reportes de Movimientos**: Generación de reportes de movimientos de cuentas de clientes en un rango de fechas.
+---
 
+## Nombre de la base de datos:
+## Tablas y Relaciones
+
+### Tabla: `persona`
+| Campo            | Tipo          | Descripción                       |
+|------------------|---------------|-----------------------------------|
+| `id`             | BIGINT        | PK, Identificador único de persona |
+| `nombre`         | VARCHAR(255)  | Nombre de la persona             |
+| `genero`         | VARCHAR(50)   | Género de la persona             |
+| `edad`           | INT           | Edad de la persona               |
+| `identificacion` | VARCHAR(100)  | Número de identificación          |
+| `direccion`      | VARCHAR(255)  | Dirección de la persona           |
+| `telefono`       | VARCHAR(20)   | Teléfono de la persona            |
+
+---
+
+### Tabla: `cliente`
+| Campo          | Tipo         | Descripción                         |
+|----------------|--------------|-------------------------------------|
+| `id`           | BIGINT       | PK, Identificador único de cliente  |
+| `cliente_id`   | VARCHAR(100) | ID único para identificación externa|
+| `contrasena`   | VARCHAR(100) | Contraseña del cliente              |
+| `estado`       | BOOLEAN      | Estado de actividad del cliente     |
+| `persona_id`   | BIGINT       | FK, Referencia a `persona(id)`      |
+
+- **Relación**: Un cliente tiene una referencia a una persona (`persona_id`), con una relación `One-to-One`.
+
+---
+
+### Tabla: `cuenta`
+| Campo          | Tipo          | Descripción                         |
+|----------------|---------------|-------------------------------------|
+| `id`           | BIGINT        | PK, Identificador único de cuenta   |
+| `numero_cuenta`| VARCHAR(100)  | Número de cuenta única             |
+| `tipo_cuenta`  | VARCHAR(50)   | Tipo de cuenta (Ahorro, Corriente)  |
+| `saldo_inicial`| DECIMAL(15, 2)| Saldo inicial de la cuenta         |
+| `estado`       | BOOLEAN       | Estado de actividad de la cuenta    |
+| `cliente_id`   | BIGINT        | FK, Referencia a `cliente(id)`      |
+
+- **Relación**: Una cuenta pertenece a un cliente (`cliente_id`), con una relación `Many-to-One`.
+
+---
+
+### Tabla: `movimiento`
+| Campo             | Tipo           | Descripción                          |
+|-------------------|----------------|--------------------------------------|
+| `id`              | BIGINT         | PK, Identificador único de movimiento|
+| `fecha`           | TIMESTAMP      | Fecha y hora del movimiento          |
+| `tipo_movimiento` | VARCHAR(50)    | Tipo de movimiento (Débito, Crédito) |
+| `monto`           | DECIMAL(15, 2) | Monto del movimiento                 |
+| `saldo`           | DECIMAL(15, 2) | Saldo después del movimiento         |
+| `cuenta_id`       | BIGINT         | FK, Referencia a `cuenta(id)`        |
+| `cliente_id`      | BIGINT         | FK, Referencia a `cliente(id)`       |
+
+- **Relación**: Un movimiento pertenece a una cuenta (`cuenta_id`) y a un cliente (`cliente_id`), con una relación `Many-to-One` para ambas.
+
+---
+
+## Relaciones Principales
+
+- **Persona - Cliente**: `One-to-One`
+- **Cliente - Cuenta**: `One-to-Many`
+- **Cuenta - Movimiento**: `One-to-Many`
+
+---
+
+Este esquema detalla las tablas y relaciones necesarias para gestionar clientes, personas, cuentas y movimientos en la base de datos `task_quito`.
 ---
 
 ## Endpoints y Estructuras de Request
